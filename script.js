@@ -9,44 +9,38 @@ const music = document.getElementById("bgMusic");
 const muteBtn = document.getElementById("muteBtn");
 
 function showScreen(id){
-  screens.forEach(s => s.classList.remove("active"));
+  screens.forEach(screen => {
+    screen.classList.remove("active");
+  });
   document.getElementById(id).classList.add("active");
 }
 
-/* Start */
-startBtn.onclick = () => {
+/* Start Button */
+startBtn.addEventListener("click", () => {
   const name = document.getElementById("nameInput").value || "My Love";
+
   showScreen("proposal");
-  proposalText.innerText = `Will you be my Valentine, ${name}? 💖`;
+  proposalText.textContent = `Will you be my Valentine, ${name}? 💖`;
 
-  music.volume = 0;
-  music.play();
-
-  let vol = 0;
-  const fade = setInterval(()=>{
-    if(vol < 1){
-      vol += 0.05;
-      music.volume = vol;
-    } else clearInterval(fade);
-  },200);
-};
+  music.play().catch(() => {});
+});
 
 /* Mute */
-muteBtn.onclick = () => {
+muteBtn.addEventListener("click", () => {
   music.muted = !music.muted;
-  muteBtn.innerText = music.muted ? "🔇" : "🔊";
-};
+  muteBtn.textContent = music.muted ? "🔇" : "🔊";
+});
 
 /* Playful No */
 let noCount = 0;
-noBtn.onmouseover = () => {
+noBtn.addEventListener("mouseover", () => {
   noCount++;
-  if(noCount === 1) noBtn.innerText = "Are you sure? 🥺";
-  else if(noCount === 2) noBtn.innerText = "Please? 🥹";
+  if(noCount === 1) noBtn.textContent = "Are you sure? 🥺";
+  else if(noCount === 2) noBtn.textContent = "Please? 🥹";
   else if(noCount === 3) noBtn.style.display = "none";
-};
+});
 
-/* Real Images */
+/* Slideshow */
 const photos = [
   {src:"images/1.jpg",caption:"Our beautiful beginning 💕"},
   {src:"images/2.jpg",caption:"Moments I cherish 🥰"},
@@ -59,47 +53,26 @@ const photos = [
 
 let index = 0;
 
-yesBtn.onclick = () => {
+yesBtn.addEventListener("click", () => {
+  index = 0;
   showScreen("slideshow");
-  launchConfetti();
   showSlides();
-};
+});
 
 function showSlides(){
-  if(index < photos.length){
-    slideImage.src = photos[index].src;
-    slideCaption.innerText = photos[index].caption;
-    index++;
-    setTimeout(showSlides,2500);
-  } else {
+  if(index >= photos.length){
     showScreen("ringSection");
-    setTimeout(()=> showScreen("finalPage"),6000);
-  }
-}
 
-/* Confetti */
-function launchConfetti(){
-  const canvas=document.getElementById("confetti");
-  const ctx=canvas.getContext("2d");
-  canvas.width=window.innerWidth;
-  canvas.height=window.innerHeight;
-  let pieces=[];
-  for(let i=0;i<150;i++){
-    pieces.push({
-      x:Math.random()*canvas.width,
-      y:Math.random()*canvas.height,
-      r:Math.random()*6+4
-    });
+    setTimeout(() => {
+      showScreen("finalPage");
+    }, 5000);
+
+    return;
   }
-  setInterval(()=>{
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle="white";
-    pieces.forEach(p=>{
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fill();
-      p.y+=2;
-      if(p.y>canvas.height)p.y=0;
-    });
-  },20);
+
+  slideImage.src = photos[index].src;
+  slideCaption.textContent = photos[index].caption;
+
+  index++;
+  setTimeout(showSlides, 2500);
 }
