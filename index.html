@@ -1,220 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Be My Valentine 💖</title>
-
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI',sans-serif;
-}
-
-body{
-  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  color:white;
-}
-
-/* Floating Hearts */
-.heart{
-  position:absolute;
-  width:15px;
-  height:15px;
-  background:red;
-  transform:rotate(45deg);
-  animation:float 6s linear infinite;
-  opacity:0.6;
-}
-.heart::before,
-.heart::after{
-  content:'';
-  width:15px;
-  height:15px;
-  background:red;
-  border-radius:50%;
-  position:absolute;
-}
-.heart::before{ top:-7px; left:0;}
-.heart::after{ left:-7px; top:0;}
-
-@keyframes float{
-  0%{ transform:translateY(100vh) rotate(45deg);}
-  100%{ transform:translateY(-10vh) rotate(45deg);}
-}
-
-/* Card */
-.card{
-  background:rgba(255,255,255,0.1);
-  backdrop-filter:blur(10px);
-  padding:40px;
-  border-radius:20px;
-  text-align:center;
-  width:90%;
-  max-width:420px;
-  box-shadow:0 0 30px rgba(255,0,128,0.6);
-  animation:glow 2s infinite alternate;
-}
-
-@keyframes glow{
-  from{ box-shadow:0 0 20px #ff4d88;}
-  to{ box-shadow:0 0 40px #ff0066;}
-}
-
-h1{
-  margin-bottom:20px;
-}
-
-button{
-  padding:12px 25px;
-  border:none;
-  border-radius:30px;
-  margin:10px;
-  cursor:pointer;
-  font-size:16px;
-  transition:0.3s;
-}
-
-.yes{
-  background:#ff0066;
-  color:white;
-}
-
-.no{
-  background:white;
-  color:#ff0066;
-  position:relative;
-}
-
-button:hover{
-  transform:scale(1.1);
-}
-
-/* Slideshow */
-.slideshow{
-  display:none;
-  text-align:center;
-}
-.slideshow img{
-  width:100%;
-  border-radius:15px;
-  margin-top:20px;
-}
-
-.final{
-  display:none;
-  text-align:center;
-}
-
-.typewriter{
-  border-right:2px solid white;
-  white-space:nowrap;
-  overflow:hidden;
-  animation:typing 4s steps(40,end), blink .8s infinite;
-}
-
-@keyframes typing{
-  from{width:0}
-  to{width:100%}
-}
-@keyframes blink{
-  50%{border-color:transparent;}
-}
-
-/* Responsive */
-@media(max-width:600px){
-  .card{
-    padding:25px;
-  }
-  h1{
-    font-size:22px;
-  }
-}
-
-</style>
+  <meta charset="UTF-8">
+  <title>For My Love 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2e8c7b3b26.mp3?filename=romantic-background-112191.mp3" type="audio/mp3">
+  <source src="music.mp3">
 </audio>
 
-<div class="card" id="mainCard">
-  <h1>Will You Be My Valentine? 💕</h1>
-  <button class="yes" onclick="startLove()">Yes 💖</button>
-  <button class="no" id="noBtn">No 🙈</button>
+<div class="top-controls">
+  <button id="themeToggle">🌙</button>
+  <button id="muteBtn">🔊</button>
 </div>
 
-<div class="slideshow" id="slideshow">
-  <h1 class="typewriter">You said YES! 🥹💖</h1>
-  <img id="slideImg" src="">
-</div>
+<!-- Floating Hearts -->
+<div id="heart-container"></div>
 
-<div class="final" id="finalPage">
-  <h1>Forever Starts Today 💍✨</h1>
-  <p>Thank you for being my everything 💕</p>
-</div>
+<!-- Intro -->
+<section class="intro" id="intro">
+  <div class="card glow-border">
+    <h2>Hey… what’s your name? 💌</h2>
+    <input type="text" id="nameInput" placeholder="Enter name">
+    <button id="startBtn" class="btn yes">Continue 💖</button>
+  </div>
+</section>
 
-<script>
+<!-- Proposal -->
+<section class="card glow-border hidden" id="proposal">
+  <h1 id="proposalText"></h1>
+  <div class="btn-group">
+    <button id="yesBtn" class="btn yes">Yes 💖</button>
+    <button id="noBtn" class="btn no">No 🙈</button>
+  </div>
+</section>
 
-/* Floating Hearts Generator */
-setInterval(()=>{
-  const heart=document.createElement('div');
-  heart.classList.add('heart');
-  heart.style.left=Math.random()*100+'vw';
-  heart.style.animationDuration=(3+Math.random()*3)+'s';
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),6000);
-},300);
+<!-- Slideshow -->
+<section class="slideshow hidden" id="slideshow">
+  <h2 id="slideCaption"></h2>
+  <img id="slideImage">
+  <div class="progress-bar">
+    <div id="progress"></div>
+  </div>
+</section>
 
-/* No Button Fun Interaction */
-const noBtn=document.getElementById('noBtn');
-noBtn.addEventListener('mouseover',()=>{
-  noBtn.style.position='absolute';
-  noBtn.style.left=Math.random()*80+'%';
-  noBtn.style.top=Math.random()*80+'%';
-});
+<!-- Cinematic Ring Section -->
+<section class="ring-section hidden" id="ringSection">
+  <div class="spotlight"></div>
+  <div class="ring-wrapper">
+    <div class="ring-3d">
+      <div class="band"></div>
+      <div class="diamond"></div>
+      <div class="sparkle"></div>
+    </div>
+    <h2 class="ring-text">Will You Stay With Me Forever? 💍✨</h2>
+  </div>
+</section>
 
-/* Slideshow Images */
-const photos=[
-"https://picsum.photos/400/500?random=1",
-"https://picsum.photos/400/500?random=2",
-"https://picsum.photos/400/500?random=3",
-"https://picsum.photos/400/500?random=4",
-"https://picsum.photos/400/500?random=5",
-"https://picsum.photos/400/500?random=6",
-"https://picsum.photos/400/500?random=7"
-];
+<!-- Final -->
+<section class="final hidden" id="finalPage">
+  <h1>Forever Starts Today 💖</h1>
+  <p id="finalMessage"></p>
+</section>
 
-let index=0;
+<canvas id="confetti"></canvas>
 
-function startLove(){
-  document.getElementById('bgMusic').play();
-  document.getElementById('mainCard').style.display="none";
-  document.getElementById('slideshow').style.display="block";
-
-  showSlide();
-}
-
-function showSlide(){
-  if(index<photos.length){
-    document.getElementById('slideImg').src=photos[index];
-    index++;
-    setTimeout(showSlide,2000);
-  }else{
-    document.getElementById('slideshow').style.display="none";
-    document.getElementById('finalPage').style.display="block";
-  }
-}
-
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
