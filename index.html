@@ -1,70 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>For My Love 💖</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love 💖</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <audio id="bgMusic" loop>
-  <source src="music.mp3">
+  <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<div class="top-controls">
-  <button id="themeToggle">🌙</button>
-  <button id="muteBtn">🔊</button>
-</div>
+<button id="muteBtn" class="mute">🔊</button>
 
-<!-- Floating Hearts -->
-<div id="heart-container"></div>
+<div class="container">
 
-<!-- Intro -->
-<section class="intro" id="intro">
-  <div class="card glow-border">
-    <h2>Hey… what’s your name? 💌</h2>
-    <input type="text" id="nameInput" placeholder="Enter name">
-    <button id="startBtn" class="btn yes">Continue 💖</button>
-  </div>
-</section>
+  <!-- Intro -->
+  <section id="intro" class="screen active">
+    <div class="card">
+      <h2>Hey… what’s your name? 💌</h2>
+      <input type="text" id="nameInput" placeholder="Enter name">
+      <button id="startBtn" class="yes">Continue 💖</button>
+    </div>
+  </section>
 
-<!-- Proposal -->
-<section class="card glow-border hidden" id="proposal">
-  <h1 id="proposalText"></h1>
-  <div class="btn-group">
-    <button id="yesBtn" class="btn yes">Yes 💖</button>
-    <button id="noBtn" class="btn no">No 🙈</button>
-  </div>
-</section>
+  <!-- Proposal -->
+  <section id="proposal" class="screen">
+    <h1 id="proposalText"></h1>
+    <div class="buttons">
+      <button id="yesBtn" class="yes">Yes 💖</button>
+      <button id="noBtn" class="no">No 🙈</button>
+    </div>
+  </section>
 
-<!-- Slideshow -->
-<section class="slideshow hidden" id="slideshow">
-  <h2 id="slideCaption"></h2>
-  <img id="slideImage">
-  <div class="progress-bar">
-    <div id="progress"></div>
-  </div>
-</section>
+  <!-- Slideshow -->
+  <section id="slideshow" class="screen">
+    <h2 id="slideCaption"></h2>
+    <img id="slideImage">
+  </section>
 
-<!-- Cinematic Ring Section -->
-<section class="ring-section hidden" id="ringSection">
-  <div class="spotlight"></div>
-  <div class="ring-wrapper">
+  <!-- Ring Scene -->
+  <section id="ringSection" class="screen">
+    <div class="spotlight"></div>
     <div class="ring-3d">
       <div class="band"></div>
       <div class="diamond"></div>
-      <div class="sparkle"></div>
     </div>
-    <h2 class="ring-text">Will You Stay With Me Forever? 💍✨</h2>
-  </div>
-</section>
+    <h2>Will You Stay With Me Forever? 💍✨</h2>
+  </section>
 
-<!-- Final -->
-<section class="final hidden" id="finalPage">
-  <h1>Forever Starts Today 💖</h1>
-  <p id="finalMessage"></p>
-</section>
+  <!-- Final -->
+  <section id="finalPage" class="screen">
+    <h1>Forever Starts Today 💖</h1>
+    <p>I promise to love you endlessly.</p>
+  </section>
+
+</div>
 
 <canvas id="confetti"></canvas>
 
