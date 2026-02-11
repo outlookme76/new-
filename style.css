@@ -1,21 +1,25 @@
-body{
+*{
   margin:0;
-  height:100vh;
-  font-family:Segoe UI;
-  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-  overflow:hidden;
-  color:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  padding:0;
+  box-sizing:border-box;
 }
 
+body{
+  font-family:Segoe UI;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  color:white;
+  height:100vh;
+  overflow:hidden;
+}
+
+/* Container */
 .container{
   width:100%;
   height:100%;
   position:relative;
 }
 
+/* Screens */
 .screen{
   position:absolute;
   width:100%;
@@ -25,68 +29,89 @@ body{
   align-items:center;
   flex-direction:column;
   text-align:center;
+  padding:20px;
 }
 
 .screen.active{
   display:flex;
 }
 
+/* Card */
 .card{
   background:rgba(255,255,255,0.15);
-  padding:40px;
-  border-radius:20px;
   backdrop-filter:blur(15px);
+  padding:30px;
+  border-radius:20px;
+  width:100%;
+  max-width:400px;
 }
 
+/* Inputs */
+input{
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  border-radius:10px;
+  border:none;
+  outline:none;
+}
+
+/* Buttons */
 button{
   padding:12px 25px;
   border:none;
   border-radius:25px;
-  margin:10px;
-  cursor:pointer;
+  margin-top:15px;
   font-size:16px;
+  cursor:pointer;
 }
 
-.yes{background:#ff0066;color:white;}
-.no{background:white;color:#ff0066;}
+.yes{
+  background:#ff0066;
+  color:white;
+}
 
+.no{
+  background:white;
+  color:#ff0066;
+}
+
+/* Slideshow */
 #slideshow img{
-  width:320px;
+  width:100%;
+  max-width:320px;
   border-radius:15px;
   margin-top:20px;
 }
 
+/* Mute button */
 .mute{
   position:fixed;
-  top:20px;
-  right:20px;
+  top:15px;
+  right:15px;
   z-index:1000;
 }
 
-/* Ring Scene */
+/* ===================== */
+/* 💍 Responsive Ring */
+/* ===================== */
 
 #ringSection{
-  perspective:1200px;
-  background:radial-gradient(circle at center,#fff3,#0000);
+  perspective:1000px;
+  padding:20px;
 }
 
 .spotlight{
   position:absolute;
-  width:500px;
-  height:500px;
+  width:300px;
+  height:300px;
   background:radial-gradient(circle,rgba(255,255,255,0.5),transparent 70%);
-  filter:blur(60px);
-  animation:pulse 3s infinite alternate;
-}
-
-@keyframes pulse{
-  from{opacity:0.4;}
-  to{opacity:0.9;}
+  filter:blur(50px);
 }
 
 .ring-3d{
-  width:200px;
-  height:200px;
+  width:140px;
+  height:140px;
   position:relative;
   animation:rotate 8s linear infinite;
 }
@@ -98,21 +123,59 @@ button{
 
 .band{
   position:absolute;
-  top:70px;
-  left:40px;
-  width:120px;
-  height:120px;
-  border:14px solid gold;
+  top:45px;
+  left:25px;
+  width:90px;
+  height:90px;
+  border:10px solid gold;
   border-radius:50%;
 }
 
 .diamond{
   position:absolute;
-  top:20px;
-  left:85px;
-  width:50px;
-  height:50px;
+  top:10px;
+  left:55px;
+  width:35px;
+  height:35px;
   background:white;
   clip-path:polygon(50% 0%,100% 40%,75% 100%,25% 100%,0% 40%);
-  box-shadow:0 0 20px white;
+  box-shadow:0 0 15px white;
+}
+
+/* ===================== */
+/* 📱 Extra Small Devices */
+/* ===================== */
+
+@media (max-width: 480px){
+
+  h1{
+    font-size:22px;
+  }
+
+  h2{
+    font-size:18px;
+  }
+
+  button{
+    width:100%;
+  }
+
+  .ring-3d{
+    width:120px;
+    height:120px;
+  }
+
+  .band{
+    width:80px;
+    height:80px;
+    left:20px;
+    top:40px;
+  }
+
+  .diamond{
+    left:50px;
+    width:30px;
+    height:30px;
+  }
+
 }
